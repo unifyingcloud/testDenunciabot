@@ -112,7 +112,7 @@
 
                     case ElectoralDenunciaOption:
                         {
-                            context.Call(new DenunciaDialog(), this.ResumeAfterStepOneDialog);
+                                context.Call(new ReceiveAttachmentDialog(), this.ResumeAfterStepOneDialog);
                             break;
                         } 
                      
