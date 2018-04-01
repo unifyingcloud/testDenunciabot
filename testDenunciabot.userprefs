@@ -1,19 +1,21 @@
 ﻿<Properties StartupConfiguration="{9C7E3A46-B60F-4052-9A21-DC8D1A942216}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/DenunciaDialog.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Global.asax">
     <Files>
-      <File FileName="Models/RootDialog.cs" Line="40" Column="12" />
+      <File FileName="Models/RootDialog.cs" Line="32" Column="91" />
       <File FileName="Models/AttachmentDialog.cs" Line="44" Column="14" />
       <File FileName="Models/BuscarDenunciaDialog.cs" Line="16" Column="1" />
-      <File FileName="Models/DenunciaDialog.cs" Line="68" Column="15" />
+      <File FileName="Models/DenunciaDialog.cs" Line="65" Column="3" />
+      <File FileName="Controllers/MessagesController.cs" Line="35" Column="16" />
+      <File FileName="Global.asax" Line="2" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testDenunciabot" expanded="True">
             <Node name="Microsoft.Bot.Sample.SimpleEchoBot" expanded="True">
-              <Node name="Models" expanded="True">
-                <Node name="DenunciaDialog.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Global.asax" selected="True" />
             </Node>
           </Node>
         </State>
