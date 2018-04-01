@@ -30,7 +30,7 @@ namespace SimpleEchoBot
                     // var store = new DocumentDbBotDataStore("cosmos db uri", "cosmos db key"); // requires Microsoft.BotBuilder.Azure Nuget package 
                     // var store = new InMemoryDataStore(); // volatile in-memory store
 
-                    builder.RegisterModule(new DefaultExceptionMessageOverrideModule());
+                   // builder.RegisterModule(new DefaultExceptionMessageOverrideModule());
 
                     builder.Register(c => store)
                         .Keyed<IBotDataStore<BotData>>(AzureModule.Key_DataStore)
