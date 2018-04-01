@@ -53,8 +53,14 @@ namespace MultiDialogsBot.Dialogs
             {
                 if (denunciaSession.correo == null)
                 {
+                    PromptDialog.Text(  
+                    context: context,  
+                    resume: ResumeGetCorreo,  
+                    prompt: "Cual es su correo electronico?",  
+                    retry: "Por favor digame su correo electronico de nuevo"  
+                );  
 
-                    await context.PostAsync("Cual es su correo electronico?");
+
                 }else if(denunciaSession.descripcion == null)
                 {
 
@@ -69,7 +75,11 @@ namespace MultiDialogsBot.Dialogs
 
             context.Wait(this.MessageReceivedAsync);
         }
-
-      
+        public virtual async Task ResumeGetCorreo(IDialogContext context, IAwaitable<string> UserEmail)  
+        {  
+        
+            this.denunciaSession.correo = UserEmail.ToString();
+              await context.PostAsync("Correo eletronico guardado");
+        }
     }
 }
