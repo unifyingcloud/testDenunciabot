@@ -48,7 +48,7 @@
                 await context.Forward(new SupportDialog(), this.ResumeAfterSupportDialog, message, CancellationToken.None);
             }
            
-            else if (message.Attachments.Any() )
+                else if (message.HasContent() )
             {
 
                 await context.PostAsync("su mensaje contiene datos adjuntos");
