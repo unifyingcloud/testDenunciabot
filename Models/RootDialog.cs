@@ -63,7 +63,7 @@
         }
             catch(Exception ex)
             {
-                await context.PostAsync(ex.Message);
+                await context.PostAsync("Ha occurrido un error " + ex.Message + ex.StackTrace);
 
 
             }
