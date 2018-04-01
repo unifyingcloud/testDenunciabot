@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{9C7E3A46-B60F-4052-9A21-DC8D1A942216}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/RootDialog.cs">
+    <Files>
+      <File FileName="Controllers/MessagesController.cs" Line="1" Column="1" />
+      <File FileName="Models/RootDialog.cs" Line="65" Column="90" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="testDenunciabot" expanded="True">
+            <Node name="Microsoft.Bot.Sample.SimpleEchoBot" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Demos" expanded="True" />
+                <Node name="RootDialog.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Microsoft.Bot.Sample.SimpleEchoBot PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
