@@ -62,7 +62,8 @@
                         break;
 
                     case ElectoralDenunciaOption:
-                        context.Call(new DenunciaDialog(), this.ResumeAfterOptionDialog);
+                        context.Call(new DenunciaDialog(), this.ResumeAfterStepOneDialog);
+                        context.Call(new ReceiveAttachmentDialog(), this.ResumeAfterOptionDialog);
  
                        // context.Call(new MyLocationDialog("1"), this.ResumeAfterOptionDialog);
  
@@ -78,6 +79,23 @@
             {
                 await context.PostAsync($"Por favor selecciona o escribe una opcion!. Escribe ayuda o soporte y tu mensaje para registrar tu solicitud de otra manera." +ex.Message);
 
+                context.Wait(this.MessageReceivedAsync);
+            }
+        }
+
+
+        private async Task ResumeAfterStepOneDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            try
+            {
+                var message = await result;
+            }
+            catch (Exception ex)
+            {
+                await context.PostAsync($"Algo ha fallado: {ex.Message}");
+            }
+            finally
+            {
                 context.Wait(this.MessageReceivedAsync);
             }
         }
@@ -105,5 +123,10 @@
                 context.Wait(this.MessageReceivedAsync);
             }
         }
+
+    
     }
+     
+
+
 }
