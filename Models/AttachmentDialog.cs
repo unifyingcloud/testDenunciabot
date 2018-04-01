@@ -72,7 +72,7 @@ namespace MultiDialogsBot.Dialogs
                 await context.PostAsync($"Ahora comenzaremos con los datos de la denuncia");
                 denunciaSession.correoPreguntado = true;
                    PromptDialog.Text(
-                context: null,
+                    context: context,
                 resume: ResumeGetCorreo,
                 prompt: "Cual es su correo electronico?",
                 retry: "Por favor digame su correo electronico de nuevo"
