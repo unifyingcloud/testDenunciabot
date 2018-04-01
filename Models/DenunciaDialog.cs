@@ -18,15 +18,26 @@ namespace MultiDialogsBot.Dialogs
         [Prompt("Por favor confirme su correo electronico")]
         public string correo { get; set; }
 
+      
+        public bool correoPreguntado { get; set; }
+
 
         [Prompt("Por digame el nombre de la {&} que desea denunciar")]
         public string persona { get; set; }
 
+        public bool personaPreguntada { get; set; }
+
         [Prompt("Por favor digame la descripcion de los hechos")]
         public string descripcion { get; set; }
 
+        public bool descripcionPreguntada { get; set; }
+
+
         [Prompt("Por favor digame la dirección más aproximada de dónde fueron los hechos")]
         public string direccion { get; set; }
+
+
+        public bool direccionPreguntada { get; set; }
 
      
         
