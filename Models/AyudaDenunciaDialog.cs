@@ -54,7 +54,7 @@ namespace MultiDialogsBot.Dialogs
             try
             {
                 
-                await context.PostAsync("Su pregunta ha sido procesada y será respondida a la brevedad");
+               // await context.PostAsync("Su pregunta ha sido procesada y será respondida a la brevedad");
 
                 var resultMessage = context.MakeMessage();
                 resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
