@@ -28,8 +28,7 @@ namespace MultiDialogsBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync("Su pregunta ha sido procesada y será respondida a la brevedad");
-
+          
             var DenunciaDialog = FormDialog.FromForm(this.BuildForm, FormOptions.PromptInStart);
 
          context.Call(DenunciaDialog, this.ResumeAfterFormDialog);
@@ -55,7 +54,7 @@ namespace MultiDialogsBot.Dialogs
             try
             {
                 
-           //     await context.PostAsync($"Hemos registrado su denuncia.");
+                await context.PostAsync("Su pregunta ha sido procesada y será respondida a la brevedad");
 
                 var resultMessage = context.MakeMessage();
                 resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
