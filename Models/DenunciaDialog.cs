@@ -28,11 +28,36 @@ namespace MultiDialogsBot.Dialogs
         [Prompt("Por favor digame la dirección más aproximada de dónde fueron los hechos")]
         public string direccion { get; set; }
 
+        [Prompt("Por adjunte evidencia")]
+        public Attachment adjunto{ get; set; }
       
         
        
     }
 
+
+
+
+    /*
+
+ 
+             /*   var attachment = message.Attachments.First();
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // Skype & MS Teams attachment URLs are secured by a JwtToken, so we need to pass the token from our bot.
+                    if ((message.ChannelId.Equals("skype", StringComparison.InvariantCultureIgnoreCase) || message.ChannelId.Equals("msteams", StringComparison.InvariantCultureIgnoreCase))
+                         && new Uri(attachment.ContentUrl).Host.EndsWith("skype.com", StringComparison.CurrentCulture))
+                    {
+                        var token = await new MicrosoftAppCredentials().GetTokenAsync();
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    }
+
+                    var responseMessage = await httpClient.GetAsync(attachment.ContentUrl);
+
+                    var contentLenghtBytes = responseMessage.Content.Headers.ContentLength;
+
+                    await context.PostAsync($"Se ha ingresado su dato adjunto tipo {attachment.ContentType}  y de {contentLenghtBytes} bites");
+     */
 
     [Serializable]
     public class DenunciaDialog : IDialog<object>
