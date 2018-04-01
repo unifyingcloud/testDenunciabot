@@ -39,7 +39,11 @@
             {
               try
                 {
-                var attachment = message.Attachments.First();
+                    await context.PostAsync("Gracias por adjuntar datos");
+
+
+
+             /*   var attachment = message.Attachments.First();
                 using (HttpClient httpClient = new HttpClient())
                 {
                     // Skype & MS Teams attachment URLs are secured by a JwtToken, so we need to pass the token from our bot.
@@ -55,7 +59,7 @@
                     var contentLenghtBytes = responseMessage.Content.Headers.ContentLength;
 
                     await context.PostAsync($"Se ha ingresado su dato adjunto tipo {attachment.ContentType}  y de {contentLenghtBytes} bites");
-                }
+                }*/
                 }
                 catch(Exception ex){
 
