@@ -62,12 +62,12 @@
                         break;
 
                     case ElectoralDenunciaOption:
-                        context.Call(new DenunciaDialog(), this.ResumeAfterStepOneDialog);
-                        context.Call(new ReceiveAttachmentDialog(), this.ResumeAfterOptionDialog);
- 
-                       // context.Call(new MyLocationDialog("1"), this.ResumeAfterOptionDialog);
- 
-                        break;
+                        {
+                            context.Call(new DenunciaDialog(), this.ResumeAfterStepOneDialog);
+                            break;
+                        } 
+                     
+  
 
                     case ElectoralAyudaOption:
                      context.Call(new AyudaDenunciaDialog(), this.ResumeAfterOptionDialog);
@@ -89,6 +89,9 @@
             try
             {
                 var message = await result;
+
+                context.Call(new ReceiveAttachmentDialog(), this.ResumeAfterOptionDialog);
+
             }
             catch (Exception ex)
             {
