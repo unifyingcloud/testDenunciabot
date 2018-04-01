@@ -44,7 +44,7 @@ namespace MultiDialogsBot.Dialogs
             }
             else
             {
-                await context.PostAsync("Agregue datos adjuntos para su denuncia");
+                await context.PostAsync("Agregue datos adjuntos para su denuncias");
             }
 
             context.Wait(this.MessageReceivedAsync);

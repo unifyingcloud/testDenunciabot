@@ -2,6 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Dialogs;
@@ -31,6 +34,26 @@
             if (message.Text.ToLower().Contains("ayuda") || message.Text.ToLower().Contains("soporte") || message.Text.ToLower().Contains("problema"))
             {
                 await context.Forward(new SupportDialog(), this.ResumeAfterSupportDialog, message, CancellationToken.None);
+            }
+            else if (message.Attachments != null && message.Attachments.Any())
+            {
+                var attachment = message.Attachments.First();
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // Skype & MS Teams attachment URLs are secured by a JwtToken, so we need to pass the token from our bot.
+                    if ((message.ChannelId.Equals("skype", StringComparison.InvariantCultureIgnoreCase) || message.ChannelId.Equals("msteams", StringComparison.InvariantCultureIgnoreCase))
+                         && new Uri(attachment.ContentUrl).Host.EndsWith("skype.com", StringComparison.CurrentCulture))
+                    {
+                        var token = await new MicrosoftAppCredentials().GetTokenAsync();
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    }
+
+                    var responseMessage = await httpClient.GetAsync(attachment.ContentUrl);
+
+                    var contentLenghtBytes = responseMessage.Content.Headers.ContentLength;
+
+                    await context.PostAsync($"Se ha ingresado su dato adjunto tipo {attachment.ContentType}  y de {contentLenghtBytes} bites");
+                }
             }
             else
             {
@@ -84,13 +107,18 @@
         }
 
 
-        private async Task ResumeAfterStepOneDialog(IDialogContext context, IAwaitable<object> result)
+
+       
+
+        private async Task ResumeAfterStepOneDialog(IDialogContext context, IAwaitable<object > result)
         {
             try
             {
                 var message = await result;
 
-                context.Call(new ReceiveAttachmentDialog(), this.ResumeAfterOptionDialog);
+
+               
+                 
 
             }
             catch (Exception ex)
