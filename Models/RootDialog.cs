@@ -37,7 +37,7 @@
             {
                 await context.Forward(new SupportDialog(), this.ResumeAfterSupportDialog, message, CancellationToken.None);
             }
-            else if (message.Attachments != null  )
+            else if (message.Attachments != null && message.Attachments.Any())
             {
                 await context.PostAsync("Recibiendo sus datos adjuntos");
 
