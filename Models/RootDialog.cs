@@ -29,6 +29,8 @@
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
+            await context.PostAsync("Gracias por adjuntar datos");
+
             var message = await result;
 
             if (message.Text.ToLower().Contains("ayuda") || message.Text.ToLower().Contains("soporte") || message.Text.ToLower().Contains("problema"))
