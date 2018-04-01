@@ -29,7 +29,7 @@
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            await context.PostAsync("Gracias por adjuntar datos");
+            await context.PostAsync("Gracias su mensaje");
 
             var message = await result;
 
@@ -39,6 +39,8 @@
             }
             else if (message.Attachments != null && message.Attachments.Any())
             {
+                await context.PostAsync("Recibiendo sus datos adjuntos");
+
               try
                 {
                     await context.PostAsync("Gracias por adjuntar datos");
