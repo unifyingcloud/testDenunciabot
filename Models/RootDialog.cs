@@ -24,7 +24,15 @@
 
         public async Task StartAsync(IDialogContext context)
         {
+            try{
             context.Wait(this.MessageReceivedAsync);
+            }
+            catch(Exception ex)
+            {
+                await context.PostAsync("Gracias por su mensaje, lo atenderemos mas tarde " + ex.Message );
+
+
+            }
         }
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
@@ -38,11 +46,42 @@
                 await context.Forward(new SupportDialog(), this.ResumeAfterSupportDialog, message, CancellationToken.None);
             }
            
+            else if (message.Attachments.Any() )
+            {
+
+                await context.PostAsync("su mensaje contiene datos adjuntos");
+
+            }
             else
+
+
             {
                 this.ShowOptions(context);
             }
         }
+
+
+
+    /*
+
+
+                 /*   var attachment = message.Attachments.First();
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        // Skype & MS Teams attachment URLs are secured by a JwtToken, so we need to pass the token from our bot.
+                        if ((message.ChannelId.Equals("skype", StringComparison.InvariantCultureIgnoreCase) || message.ChannelId.Equals("msteams", StringComparison.InvariantCultureIgnoreCase))
+                             && new Uri(attachment.ContentUrl).Host.EndsWith("skype.com", StringComparison.CurrentCulture))
+                        {
+                            var token = await new MicrosoftAppCredentials().GetTokenAsync();
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        }
+
+                        var responseMessage = await httpClient.GetAsync(attachment.ContentUrl);
+
+                        var contentLenghtBytes = responseMessage.Content.Headers.ContentLength;
+
+                        await context.PostAsync($"Se ha ingresado su dato adjunto tipo {attachment.ContentType}  y de {contentLenghtBytes} bites");
+         */
 
         private void ShowOptions(IDialogContext context)
         {
