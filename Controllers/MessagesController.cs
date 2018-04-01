@@ -106,17 +106,28 @@ namespace MultiDialogsBot
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            if (activity.Type == ActivityTypes.Message)
+            try
             {
-                await Conversation.SendAsync(activity, () => new RootDialog());
-            }
-            else
-            {
-                this.HandleSystemMessage(activity);
-            }
+                if (activity.Type == ActivityTypes.Message)
+                {
+                    await Conversation.SendAsync(activity, () => new RootDialog());
+                }
 
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
+                else
+                {
+                    this.HandleSystemMessage(activity);
+                }
+
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+            }
+            catch 
+            {
+               
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+
+            }
         }
 
         private Activity HandleSystemMessage(Activity message)

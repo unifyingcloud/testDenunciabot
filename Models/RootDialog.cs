@@ -20,7 +20,8 @@
 
         private const string ElectoralAyudaOption = "Preguntar a Fepade";
 
-  
+        private const string Cancelar = "Cancelar";
+
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -37,6 +38,7 @@
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
+            try{
             await context.PostAsync("Gracias por su mensaje");
 
             var message = await result;
@@ -59,7 +61,15 @@
                 this.ShowOptions(context);
             }
         }
+            catch(Exception ex)
+            {
+                await context.PostAsync(ex.Message);
 
+
+            }
+
+
+        }
 
 
     /*
