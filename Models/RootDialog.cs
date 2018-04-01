@@ -119,8 +119,11 @@
   
 
                     case ElectoralAyudaOption:
-                     context.Call(new AyudaDenunciaDialog(), this.ResumeAfterOptionDialog);
-                        break;
+                   //  context.Call(new AyudaDenunciaDialog(), this.ResumeAfterOptionDialog);
+                     
+                            context.Call(new ReceiveAttachmentDialog(), this.ResumeAfterOptionDialog);
+                     
+                            break;
 
                 }
             }
