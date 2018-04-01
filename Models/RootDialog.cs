@@ -37,6 +37,8 @@
             }
             else if (message.Attachments != null && message.Attachments.Any())
             {
+              try
+                {
                 var attachment = message.Attachments.First();
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -53,6 +55,12 @@
                     var contentLenghtBytes = responseMessage.Content.Headers.ContentLength;
 
                     await context.PostAsync($"Se ha ingresado su dato adjunto tipo {attachment.ContentType}  y de {contentLenghtBytes} bites");
+                }
+                }
+                catch(Exception ex){
+
+                    await context.PostAsync(ex.Message);
+
                 }
             }
             else
