@@ -71,6 +71,7 @@ namespace MultiDialogsBot.Dialogs
         {
             if (denunciaSession.correo == null)
             {
+                await context.PostAsync($"Ahora comenzaremos con los datos de la denuncia");
                 denunciaSession.correoPreguntado = true;
                 PromptDialog.Text(
                 context: context,
