@@ -18,9 +18,15 @@ namespace MultiDialogsBot.Dialogs
         {
             context.Wait(this.MessageReceivedAsync);
         }
-
+        private Denuncia denunciaSession;
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
+
+            if (denunciaSession ==null)
+            {
+
+                denunciaSession = new Denuncia();
+            }
             var message = await argument;
 
             if (message.Attachments != null && message.Attachments.Any())
@@ -45,30 +51,25 @@ namespace MultiDialogsBot.Dialogs
             }
             else
             {
-                await context.PostAsync("Ha decidido reportar una nueva denuncia.");
-                DenunciaDialog s = new DenunciaDialog();
-                var DenunciaDialog = FormDialog.FromForm(s.BuildForm , FormOptions.PromptInStart);
+                if (denunciaSession.correo == null)
+                {
 
-                context.Call(DenunciaDialog, this.ResumeAfterFormDialog);
+                    await context.PostAsync("Cual es su correo electronico?");
+                }else if(denunciaSession.descripcion == null)
+                {
+
+                    await context.PostAsync("Describa los hechos");
+
+
+                }
+
+
+                 
             }
 
             context.Wait(this.MessageReceivedAsync);
         }
 
-        private async Task ResumeAfterFormDialog(IDialogContext context, IAwaitable<object> result)
-        {
-            try
-            {
-                var message = await result;
-            }
-            catch (Exception ex)
-            {
-                await context.PostAsync($"Algo ha fallado: {ex.Message}");
-            }
-            finally
-            {
-                context.Wait(this.MessageReceivedAsync);
-            }
-        }
+      
     }
 }
