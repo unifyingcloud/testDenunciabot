@@ -8,6 +8,7 @@ namespace MultiDialogsBot.Dialogs
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Builder.FormFlow;
     using Microsoft.Bot.Connector;
 
     [Serializable]
@@ -44,10 +45,30 @@ namespace MultiDialogsBot.Dialogs
             }
             else
             {
-                await context.PostAsync("Agregue datos adjuntos para su denuncias");
+                await context.PostAsync("Ha decidido reportar una nueva denuncia.");
+                DenunciaDialog s = new DenunciaDialog();
+                var DenunciaDialog = FormDialog.FromForm(s.BuildForm , FormOptions.PromptInStart);
+
+                context.Call(DenunciaDialog, this.ResumeAfterFormDialog);
             }
 
             context.Wait(this.MessageReceivedAsync);
+        }
+
+        private async Task ResumeAfterFormDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            try
+            {
+                var message = await result;
+            }
+            catch (Exception ex)
+            {
+                await context.PostAsync($"Algo ha fallado: {ex.Message}");
+            }
+            finally
+            {
+                context.Wait(this.MessageReceivedAsync);
+            }
         }
     }
 }

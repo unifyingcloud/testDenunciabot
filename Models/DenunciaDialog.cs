@@ -49,7 +49,7 @@ namespace MultiDialogsBot.Dialogs
          context.Call(DenunciaDialog, this.ResumeAfterFormDialog);
         }
 
-     private IForm<Denuncia> BuildForm()
+     public IForm<Denuncia> BuildForm()
         {
              OnCompletionAsyncDelegate<Denuncia> processSearch = async (context, state) =>
             {
