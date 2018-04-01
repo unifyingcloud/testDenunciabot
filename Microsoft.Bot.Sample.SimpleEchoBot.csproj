@@ -194,6 +194,7 @@
     <Compile Include="Models\Demos\HotelsDialog.cs" />
     <Compile Include="Models\Demos\HotelsQuery.cs" />
     <Compile Include="Models\Demos\Sandwich.cs" />
+    <Compile Include="Models\AttachmentDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

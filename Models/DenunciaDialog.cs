@@ -13,17 +13,24 @@ namespace MultiDialogsBot.Dialogs
     [Serializable]
     public class Denuncia
     {
-      
-        [Prompt("Por favor digame su {&}")]
-        public string correoElectronico { get; set; }
 
-        [Prompt("Por favor digame qué es lo que pasó")]
+
+        [Prompt("Por favor confirme su correo electronico")]
+        public string correo { get; set; }
+
+
+        [Prompt("Por digame el nombre de la {&} que desea denunciar")]
+        public string persona { get; set; }
+
+        [Prompt("Por favor digame la descripcion de los hechos")]
         public string descripcion { get; set; }
-        [Prompt("Por favor digame la {&}")]
-        public string fecha { get; set; }
+
         [Prompt("Por favor digame la dirección más aproximada de dónde fueron los hechos")]
         public string direccion { get; set; }
 
+      
+        
+       
     }
 
 
@@ -58,7 +65,7 @@ namespace MultiDialogsBot.Dialogs
         {
             try
             {
-                
+              
            //     await context.PostAsync($"Hemos registrado su denuncia.");
 
                 var resultMessage = context.MakeMessage();
