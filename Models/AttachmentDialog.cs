@@ -88,7 +88,8 @@ namespace MultiDialogsBot.Dialogs
             }else
             {
 
-                context.Wait(this.preguntaDescripcion);
+                await this.preguntaDescripcion(context, argument); 
+             
 
             }
         }
@@ -255,7 +256,11 @@ namespace MultiDialogsBot.Dialogs
 
             this.denunciaSession.correo = message.ToString();
               await context.PostAsync("Correo eletronico guardado");
-            context.Wait(this.preguntaDescripcion);
+            //context.Wait(this.preguntaDescripcion);
+            await this.preguntaDescripcion(context, null); 
+ 
+                
+
         }
 
 
