@@ -122,7 +122,7 @@ namespace MultiDialogsBot.Dialogs
         {
 
 
-            var msg = await argument;
+          
 
             // Here we prepare the message on Facebook that will ask for Location
             if (_channelID  == "facebook")
