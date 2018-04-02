@@ -38,7 +38,7 @@ namespace MultiDialogsBot.Dialogs
             }
             var message = await argument;
 
-            _channelID = message.ChannelId;
+            _channelID=message.ChannelId;
 
             if (message.Attachments != null && message.Attachments.Any())
             {
@@ -164,7 +164,7 @@ namespace MultiDialogsBot.Dialogs
                 {
 
                     //   await context.PostAsync($"Gracias por su apoyo");
-                    context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
+                   // context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
                 }
             }
           
