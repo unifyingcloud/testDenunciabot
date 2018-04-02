@@ -171,7 +171,7 @@ namespace MultiDialogsBot.Dialogs
             var location = msg.Entities?.Where(t => t.Type == "Place").Select(t => t.GetAs<Place>()).FirstOrDefault();
 
             // Printing message main content about location
-            await context.PostAsync($"Ubicacion recibida: { Newtonsoft.Json.JsonConvert.SerializeObject(msg.Entities) }");
+            //await context.PostAsync($"Ubicacion recibida: { Newtonsoft.Json.JsonConvert.SerializeObject(msg.Entities) }");
 
             denunciaSession.direccion = Newtonsoft.Json.JsonConvert.SerializeObject(msg.Entities);
             // The result can be used then to do what you want, here in this sample it outputs a message with a link to Bing Maps centered on the position
@@ -181,20 +181,25 @@ namespace MultiDialogsBot.Dialogs
                 var reply = context.MakeMessage();
                 reply.Attachments.Add(new HeroCard
                 {
-                    Title = "Unicacion de los hechos",
+                    Title = "Ubicacion de los hechos",
                     Buttons = new List<CardAction> {
                             new CardAction
                             {
                                 Title = "Donde ocurrieron los hechos",
+
                                 Type = ActionTypes.OpenUrl,
-                                Value = $"https://www.bing.com/maps/?v=2&cp={geo.Latitude}~{geo.Longitude}&lvl=16&dir=0&sty=c&sp=point.{geo.Latitude}_{geo.Longitude}_You%20are%20here&ignoreoptin=1"
-                            }
+                            Value = $"https://bing.com/maps/default.aspx?cp={geo.Latitude}~{geo.Longitude}&lvl=16&dir=0&sty=c&sp=point.{geo.Latitude}_{geo.Longitude}_You%20are%20here&ignoreoptin=1"
+
+                        }
                         }
 
                 }.ToAttachment());
 
                 await context.PostAsync(reply);
                 context.Done(location);
+                await context.PostAsync("Gracias por su apoyo, su Folio es 01 - 00000044 - 5DC67D y contraseña: 213B62, se enviara una copia a " + this.denunciaSession.correo);
+        
+
             }
             else
             {
