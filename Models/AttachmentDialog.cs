@@ -269,7 +269,10 @@ namespace MultiDialogsBot.Dialogs
             var message = await val;
             this.denunciaSession.descripcion = message.ToString();
             await context.PostAsync("Descripcion guardada");
-            context.Wait(this.preguntaDireccion);
+         //   context.Wait(this.preguntaDireccion);
+
+            await this.preguntaDireccion(context, null); 
+ 
         }
     }
 }
