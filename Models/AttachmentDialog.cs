@@ -52,15 +52,17 @@ namespace MultiDialogsBot.Dialogs
 
                      
                     await context.PostAsync($"Hemos guardado su evidencia en formato {attachment.ContentType}  y de {contentLenghtBytes} bytes");
-
+ 
+                    context.Wait(this.preguntaCorreo);
+ 
                    
                 }
             }
             else
             {
-                 context.Wait(this.preguntaCorreo);
              
-                // await preguntaDescripcion(context, argument);
+                await context.PostAsync($"Agregue evidencia adjuntando imagenes, videos o documentos");
+ 
                  
             }
 
@@ -115,7 +117,7 @@ namespace MultiDialogsBot.Dialogs
                 denunciaSession.direccionPreguntada = true;
                 PromptDialog.Text(
                 context: context,
-                resume: ResumeGetDescripcion,
+                    resume: ResumeGetDireccion,
                 prompt: "Cual es la direccion aproximada de los hechos?",
                     retry: "Cual es la direccion aproximada de los hechos?"
             );
@@ -123,9 +125,15 @@ namespace MultiDialogsBot.Dialogs
             else
             {
 
-                await context.PostAsync($"Gracias por su apoyo");
-
+                //   await context.PostAsync($"Gracias por su apoyo");
+                context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
             }
+        }
+
+        public virtual async Task ResumeGetDireccion(IDialogContext context, IAwaitable<string> val)
+        {
+
+            context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
         }
 
 
