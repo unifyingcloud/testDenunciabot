@@ -29,12 +29,16 @@ namespace MultiDialogsBot.Dialogs
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
 
+ 
+
             if (denunciaSession ==null)
             {
 
                 denunciaSession = new Denuncia();
             }
             var message = await argument;
+
+            _channelID = message.ChannelId;
 
             if (message.Attachments != null && message.Attachments.Any())
             {
@@ -107,12 +111,12 @@ namespace MultiDialogsBot.Dialogs
             );
             }else
             {
-
-                context.Wait(this.preguntaDireccion);
+                await this.preguntaDireccion(context, argument ); 
+                //context.Wait(this.preguntaDireccion);
 
             }
         }
-
+        private String _channelID; 
 
         public virtual async Task preguntaDireccion(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
@@ -121,7 +125,7 @@ namespace MultiDialogsBot.Dialogs
             var msg = await argument;
 
             // Here we prepare the message on Facebook that will ask for Location
-            if (msg.ChannelId == "facebook")
+            if (_channelID  == "facebook")
             {
                 var reply = context.MakeMessage();
                 reply.ChannelData = new FacebookMessage
