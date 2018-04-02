@@ -55,8 +55,8 @@ namespace MultiDialogsBot.Dialogs
 
                      
                     await context.PostAsync($"Hemos guardado su evidencia en formato {attachment.ContentType}  y de {contentLenghtBytes} bytes");
- 
-                    context.Wait(this.preguntaCorreo);
+
+                    await this.preguntaCorreo(context, argument); 
  
                    
                 }
