@@ -102,10 +102,32 @@ namespace MultiDialogsBot.Dialogs
             }else
             {
 
+                context.Wait(this.preguntaDireccion);
+
+            }
+        }
+
+
+        public virtual async Task preguntaDireccion(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        {
+            if (denunciaSession.direccion == null)
+            {
+                denunciaSession.direccionPreguntada = true;
+                PromptDialog.Text(
+                context: context,
+                resume: ResumeGetDescripcion,
+                prompt: "Cual es la direccion aproximada de los hechos?",
+                    retry: "Cual es la direccion aproximada de los hechos?"
+            );
+            }
+            else
+            {
+
                 await context.PostAsync($"Gracias por su apoyo");
 
             }
         }
+
 
 
 
