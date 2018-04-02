@@ -16,11 +16,11 @@ namespace MultiDialogsBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-           /* 
-            context.Wait(this.MessageReceivedAsync);*/
+           /* */
             await context.PostAsync("Ha decidido reportar una nueva denuncia. Agradecemos su apoyo");
 
-            context.Wait(preguntaCorreo); 
+            context.Wait(this.MessageReceivedAsync);
+             
         }
         private Denuncia denunciaSession;
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
@@ -58,7 +58,11 @@ namespace MultiDialogsBot.Dialogs
             }
             else
             {
-               // await preguntaCorreo(context, argument);
+
+
+                context.Wait(this.preguntaCorreo);
+             
+              //   await preguntaCorreo(context, argument);
                // await preguntaDescripcion(context, argument);
                  
             }
