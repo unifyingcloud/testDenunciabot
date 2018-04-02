@@ -144,6 +144,7 @@ namespace MultiDialogsBot.Dialogs
         
             this.denunciaSession.correo = val.ToString();
               await context.PostAsync("Correo eletronico guardado");
+            context.Wait(this.preguntaDescripcion);
         }
 
 
@@ -152,6 +153,7 @@ namespace MultiDialogsBot.Dialogs
 
             this.denunciaSession.descripcion = val.ToString();
             await context.PostAsync("Descripcion guardada");
+            context.Wait(this.preguntaDireccion);
         }
     }
 }
