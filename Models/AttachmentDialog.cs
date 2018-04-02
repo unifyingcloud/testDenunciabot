@@ -58,12 +58,9 @@ namespace MultiDialogsBot.Dialogs
             }
             else
             {
-
-
-                context.Wait(this.preguntaCorreo);
+                 context.Wait(this.preguntaCorreo);
              
-              //   await preguntaCorreo(context, argument);
-               // await preguntaDescripcion(context, argument);
+                // await preguntaDescripcion(context, argument);
                  
             }
 
@@ -83,6 +80,11 @@ namespace MultiDialogsBot.Dialogs
                 prompt: "Cual es su correo electronico?",
                 retry: "Por favor digame su correo electronico de nuevo"
             );
+            }else
+            {
+
+                context.Wait(this.preguntaDescripcion);
+
             }
         }
 
@@ -97,6 +99,11 @@ namespace MultiDialogsBot.Dialogs
                 prompt: "Cual es su descripcion de los hechos?",
                 retry: "Escriba su descripcion de los hechos?"
             );
+            }else
+            {
+
+                await context.PostAsync($"Gracias por su apoyo");
+
             }
         }
 
