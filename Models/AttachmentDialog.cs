@@ -8,9 +8,11 @@ namespace MultiDialogsBot.Dialogs
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
+    using Microsoft.Bot.Builder.ConnectorEx;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Builder.FormFlow;
     using Microsoft.Bot.Connector;
+    using Newtonsoft.Json.Linq;
 
     [Serializable]
     internal class ReceiveAttachmentDialog : IDialog<object>
@@ -113,21 +115,91 @@ namespace MultiDialogsBot.Dialogs
 
         public virtual async Task preguntaDireccion(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-            if (denunciaSession.direccion == null)
+
+
+            var msg = await argument;
+
+            // Here we prepare the message on Facebook that will ask for Location
+            if (msg.ChannelId == "facebook")
             {
-                denunciaSession.direccionPreguntada = true;
-                PromptDialog.Text(
-                context: context,
-                    resume: ResumeGetDireccion,
-                prompt: "Cual es la direccion aproximada de los hechos?",
-                    retry: "Cual es la direccion aproximada de los hechos?"
-            );
+                var reply = context.MakeMessage();
+                reply.ChannelData = new FacebookMessage
+                (
+                    text: "Por favor comparta su ubicacion mediante Facebook",
+                    quickReplies: new List<FacebookQuickReply>
+                    {
+                    // If content_type is location, title and payload are not used
+                    // see https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies#fields
+                    // for more information.
+                    new FacebookQuickReply(
+                        contentType: FacebookQuickReply.ContentTypes.Location,
+                        title: default(string),
+                        payload: default(string)
+                    )
+                    }
+                );
+                await context.PostAsync(reply);
+
+                // LocationReceivedAsync will be the place where we handle the result
+                context.Wait(LocationReceivedAsync);
             }
             else
             {
+                if (denunciaSession.direccion == null)
+                {
+                    denunciaSession.direccionPreguntada = true;
+                    PromptDialog.Text(
+                    context: context,
+                        resume: ResumeGetDireccion,
+                    prompt: "Cual es la direccion aproximada de los hechos?",
+                        retry: "Cual es la direccion aproximada de los hechos?"
+                );
+                }
+                else
+                {
 
-                //   await context.PostAsync($"Gracias por su apoyo");
-                context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
+                    //   await context.PostAsync($"Gracias por su apoyo");
+                    context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
+                }
+            }
+          
+        }
+
+        public async Task LocationReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        {
+            var msg = await argument;
+            var location = msg.Entities?.Where(t => t.Type == "Place").Select(t => t.GetAs<Place>()).FirstOrDefault();
+
+            // Printing message main content about location
+            await context.PostAsync($"Ubicacion recibida: { Newtonsoft.Json.JsonConvert.SerializeObject(msg.Entities) }");
+
+            denunciaSession.direccion = Newtonsoft.Json.JsonConvert.SerializeObject(msg.Entities);
+            // The result can be used then to do what you want, here in this sample it outputs a message with a link to Bing Maps centered on the position
+            var geo = (location.Geo as JObject)?.ToObject<GeoCoordinates>();
+            if (geo != null)
+            {
+                var reply = context.MakeMessage();
+                reply.Attachments.Add(new HeroCard
+                {
+                    Title = "Unicacion de los hechos",
+                    Buttons = new List<CardAction> {
+                            new CardAction
+                            {
+                                Title = "Donde ocurrieron los hechos",
+                                Type = ActionTypes.OpenUrl,
+                                Value = $"https://www.bing.com/maps/?v=2&cp={geo.Latitude}~{geo.Longitude}&lvl=16&dir=0&sty=c&sp=point.{geo.Latitude}_{geo.Longitude}_You%20are%20here&ignoreoptin=1"
+                            }
+                        }
+
+                }.ToAttachment());
+
+                await context.PostAsync(reply);
+                context.Done(location);
+            }
+            else
+            {
+                await context.PostAsync("No encontramos la ubicacion!");
+                context.Done(default(Place));
             }
         }
 
