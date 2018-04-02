@@ -132,8 +132,8 @@ namespace MultiDialogsBot.Dialogs
 
         public virtual async Task ResumeGetDireccion(IDialogContext context, IAwaitable<string> val)
         {
-
-            context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62");
+            this.denunciaSession.direccion =val.ToString();
+            context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62, se enviara una copia a " + this.denunciaSession.correo);
         }
 
 
@@ -150,7 +150,7 @@ namespace MultiDialogsBot.Dialogs
         public virtual async Task ResumeGetDescripcion(IDialogContext context, IAwaitable<string> val)
         {
 
-            this.denunciaSession.correo = val.ToString();
+            this.denunciaSession.descripcion = val.ToString();
             await context.PostAsync("Descripcion guardada");
         }
     }

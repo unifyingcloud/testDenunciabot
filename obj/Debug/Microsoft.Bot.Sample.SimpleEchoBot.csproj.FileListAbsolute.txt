@@ -137,4 +137,3 @@
 /Users/jonatancisnerosrodriguez/Documents/GitHub/testDenunciabot/obj/Debug/Microsoft.Bot.Sample.SimpleEchoBot.csproj.CoreCompileInputs.cache
 /Users/jonatancisnerosrodriguez/Documents/GitHub/testDenunciabot/obj/Debug/SimpleEchoBot.dll
 /Users/jonatancisnerosrodriguez/Documents/GitHub/testDenunciabot/obj/Debug/SimpleEchoBot.pdb
-/Users/jonatancisnerosrodriguez/Documents/GitHub/testDenunciabot/obj/Debug/Microsoft.Bot.Sample.SimpleEchoBot.csprojResolveAssemblyReference.cache
