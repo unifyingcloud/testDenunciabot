@@ -2,6 +2,7 @@
 namespace MultiDialogsBot.Dialogs
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -133,7 +134,36 @@ namespace MultiDialogsBot.Dialogs
         public virtual async Task ResumeGetDireccion(IDialogContext context, IAwaitable<string> val)
         {
             this.denunciaSession.direccion =val.ToString();
+
+            await context.PostAsync("Gracias por su apoyo, su Folio es 01 - 00000044 - 5DC67D y contraseña: 213B62, se enviara una copia a " + this.denunciaSession.correo);
             context.EndConversation("Gracias por su apoyo, su Folio es 01-00000044-5DC67D y contraseña: 213B62, se enviara una copia a " + this.denunciaSession.correo);
+       
+            var resultMessage = context.MakeMessage();
+            resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+            resultMessage.Attachments = new List<Attachment>();
+            HeroCard heroCard = new HeroCard()
+            {
+                Title = "Denuncia FEPADE",
+                Subtitle = "Hemos generado su denuncia",
+                Images = new List<CardImage>()
+                        {
+                        new CardImage() { Url = "https://app.cedac.pgr.gob.mx/ATENCIONPGR/img/LogoAtenci%C3%B3nPGR-02.jpg" }
+                        },
+                Buttons = new List<CardAction>()
+                        {
+                            new CardAction()
+                            {
+                                Title = "Gracias por contribuir",
+                                Type = ActionTypes.OpenUrl,
+                            Value = $"https://www.gob.mx/pgr"
+                            }
+                        }
+            };
+
+            resultMessage.Attachments.Add(heroCard.ToAttachment());
+
+            await context.PostAsync(resultMessage);
+        
         }
 
 
