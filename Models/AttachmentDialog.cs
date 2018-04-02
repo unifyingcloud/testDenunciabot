@@ -16,9 +16,11 @@ namespace MultiDialogsBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
+           /* 
+            context.Wait(this.MessageReceivedAsync);*/
             await context.PostAsync("Ha decidido reportar una nueva denuncia. Comience por enviar su evidencia");
 
-            context.Wait(this.MessageReceivedAsync);
+            context.Wait(preguntaCorreo); 
         }
         private Denuncia denunciaSession;
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
