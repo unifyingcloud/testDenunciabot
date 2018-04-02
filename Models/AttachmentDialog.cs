@@ -18,7 +18,7 @@ namespace MultiDialogsBot.Dialogs
         {
            /* 
             context.Wait(this.MessageReceivedAsync);*/
-            await context.PostAsync("Ha decidido reportar una nueva denuncia. Comience por enviar su evidencia");
+            await context.PostAsync("Ha decidido reportar una nueva denuncia. Agradecemos su apoyo");
 
             context.Wait(preguntaCorreo); 
         }
@@ -58,12 +58,12 @@ namespace MultiDialogsBot.Dialogs
             }
             else
             {
-                await preguntaCorreo(context, argument);
-                await preguntaDescripcion(context, argument);
+               // await preguntaCorreo(context, argument);
+               // await preguntaDescripcion(context, argument);
                  
             }
 
-            context.Wait(this.MessageReceivedAsync);
+           // context.Wait(this.MessageReceivedAsync);
         }
 
 
